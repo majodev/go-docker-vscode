@@ -6,6 +6,8 @@ Template for working with Go in Docker via [VSCode remote containers](https://co
 
 Extracted from [allaboutapps/go-starter](https://github.com/allaboutapps/go-starter).
 
+**ToC**:
+
 - [go-docker-vscode](#go-docker-vscode)
     - [Requirements](#requirements)
     - [Quickstart](#quickstart)
