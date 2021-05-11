@@ -27,3 +27,4 @@ tmp
 
 # mac specific
 .DS_Store
+error.log
