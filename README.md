@@ -1,6 +1,6 @@
 # go-docker-vscode
 
-Minimal starting repository for working with Go in [VSCode DevContainers](https://code.visualstudio.com/docs/remote/containers).
+Template for working with Go in Docker via [VSCode remote containers](https://code.visualstudio.com/docs/remote/containers).
 
 ![go starter overview](https://public.allaboutapps.at/go-starter-wiki/go-starter-main-overview.png)
 
