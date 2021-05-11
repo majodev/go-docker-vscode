@@ -1,0 +1,7 @@
+.devcontainer
+.vscode
+.pkg
+.tools-versions
+Dockerfile
+docker-compose.*
+docker-helper.sh

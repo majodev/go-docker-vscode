@@ -1,0 +1,34 @@
+name: Build & Test
+
+on:
+  push:
+    branches: "**"
+  pull_request:
+    branches: [master]
+env:
+  DOCKER_ENV_FILE: ".github/workflows/docker.env"
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the Docker image
+        run: docker build --target builder --file Dockerfile --tag majodev/go-docker-vscode:${GITHUB_SHA:8} .
+      - name: Create container
+        run: docker run -d --env-file $DOCKER_ENV_FILE --name=builder -it majodev/go-docker-vscode:${GITHUB_SHA:8}
+      - name: make tidy
+        run: docker exec builder make tidy
+      - name: make build
+        run: docker exec builder make build
+      - name: make test
+        run: docker exec builder make test
+      - name: git diff --exit-code
+        # Note builder stage now includes .git, thus we rm it again to again diff with the original git workspace
+        run: docker cp builder:/app ./post-build && rm -rf ./post-build/.git && git -C post-build diff --exit-code
+      - name: Stop container
+        if: ${{ always() }}
+        run: docker stop builder
+      - name: Remove container
+        if: ${{ always() }}
+        run: docker rm builder
+
