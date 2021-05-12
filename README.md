@@ -1,5 +1,18 @@
 # go-docker-vscode
 
+Debug branch / issue showcase: `mr/debug@github.com/klauspost/compress`
+
+This branch showcases a out-of-bounds write happening with [github.com/klauspost/compress](https://github.com/klauspost/compress/releases/tag/v1.11.8) **`<v1.11.8`** within `compress_test.go`.
+
+Related:
+* [go-redis/cache/pull/58](https://github.com/go-redis/cache/pull/58)
+* [volatiletech/sqlboiler/issues/946](https://github.com/volatiletech/sqlboiler/issues/946)
+* [vmihailenco/taskq/pull/108](https://github.com/vmihailenco/taskq/pull/108)
+
+--- 
+
+Original Readme
+
 Template for working with Go in Docker via [VSCode remote containers](https://code.visualstudio.com/docs/remote/containers).
 
 ![go starter overview](https://public.allaboutapps.at/go-starter-wiki/go-starter-main-overview.png)
