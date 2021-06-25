@@ -4,7 +4,7 @@
 # --- https://hub.docker.com/_/golang
 # --- https://github.com/microsoft/vscode-remote-try-go/blob/master/.devcontainer/Dockerfile
 ### -----------------------
-FROM golang:1.16.4 AS development
+FROM golang:1.16.5 AS development
 
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
@@ -75,20 +75,20 @@ RUN mkdir -p /tmp/gotestsum \
 # https://github.com/golangci/golangci-lint#binary
 # https://github.com/golangci/golangci-lint/releases
 RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh \
-    | sh -s -- -b $(go env GOPATH)/bin v1.39.0
+    | sh -s -- -b $(go env GOPATH)/bin v1.41.1
 
 # lichen: go license util 
 # TODO: Install from static binary as soon as it becomes available.
 # https://github.com/uw-labs/lichen/releases
-RUN go install github.com/uw-labs/lichen@v0.1.3
+RUN go install github.com/uw-labs/lichen@v0.1.4
 
 # watchexec
 # https://github.com/watchexec/watchexec/releases
 RUN mkdir -p /tmp/watchexec \
     && cd /tmp/watchexec \
-    && wget https://github.com/watchexec/watchexec/releases/download/cli-v1.16.0/watchexec-1.16.0-x86_64-unknown-linux-gnu.tar.xz \
-    && tar xf watchexec-1.16.0-x86_64-unknown-linux-gnu.tar.xz \
-    && cp watchexec-1.16.0-x86_64-unknown-linux-gnu/watchexec /usr/local/bin/watchexec \
+    && wget https://github.com/watchexec/watchexec/releases/download/cli-v1.16.1/watchexec-1.16.1-x86_64-unknown-linux-gnu.tar.xz \
+    && tar xf watchexec-1.16.1-x86_64-unknown-linux-gnu.tar.xz \
+    && cp watchexec-1.16.1-x86_64-unknown-linux-gnu/watchexec /usr/local/bin/watchexec \
     && rm -rf /tmp/watchexec
 
 # linux permissions / vscode support: Add user to avoid linux file permission issues
