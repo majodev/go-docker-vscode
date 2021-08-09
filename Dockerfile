@@ -4,7 +4,7 @@
 # --- https://hub.docker.com/_/golang
 # --- https://github.com/microsoft/vscode-remote-try-go/blob/master/.devcontainer/Dockerfile
 ### -----------------------
-FROM golang:1.16.5 AS development
+FROM golang:1.16.7 AS development
 
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
@@ -66,8 +66,8 @@ ENV LANG en_US.UTF-8
 # https://github.com/gotestyourself/gotestsum/releases
 RUN mkdir -p /tmp/gotestsum \
     && cd /tmp/gotestsum \
-    && wget https://github.com/gotestyourself/gotestsum/releases/download/v1.6.4/gotestsum_1.6.4_linux_amd64.tar.gz \
-    && tar xzf gotestsum_1.6.4_linux_amd64.tar.gz \
+    && wget https://github.com/gotestyourself/gotestsum/releases/download/v1.7.0/gotestsum_1.7.0_linux_amd64.tar.gz \
+    && tar xzf gotestsum_1.7.0_linux_amd64.tar.gz \
     && cp gotestsum /usr/local/bin/gotestsum \
     && rm -rf /tmp/gotestsum 
 
@@ -86,9 +86,9 @@ RUN go install github.com/uw-labs/lichen@v0.1.4
 # https://github.com/watchexec/watchexec/releases
 RUN mkdir -p /tmp/watchexec \
     && cd /tmp/watchexec \
-    && wget https://github.com/watchexec/watchexec/releases/download/cli-v1.16.1/watchexec-1.16.1-x86_64-unknown-linux-gnu.tar.xz \
-    && tar xf watchexec-1.16.1-x86_64-unknown-linux-gnu.tar.xz \
-    && cp watchexec-1.16.1-x86_64-unknown-linux-gnu/watchexec /usr/local/bin/watchexec \
+    && wget https://github.com/watchexec/watchexec/releases/download/cli-v1.17.0/watchexec-1.17.0-x86_64-unknown-linux-gnu.tar.xz \
+    && tar xf watchexec-1.17.0-x86_64-unknown-linux-gnu.tar.xz \
+    && cp watchexec-1.17.0-x86_64-unknown-linux-gnu/watchexec /usr/local/bin/watchexec \
     && rm -rf /tmp/watchexec
 
 # linux permissions / vscode support: Add user to avoid linux file permission issues

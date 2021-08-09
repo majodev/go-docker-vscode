@@ -2,6 +2,9 @@
 
 Template for working with Go in Docker via [VSCode remote containers](https://code.visualstudio.com/docs/remote/containers).
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/majodev/go-docker-vscode/blob/master/LICENSE)
+[![Build and Test](https://github.com/majodev/go-docker-vscode/actions/workflows/build-test.yml/badge.svg)](https://github.com/majodev/go-docker-vscode/actions)
+
 ![go starter overview](https://public.allaboutapps.at/go-starter-wiki/go-starter-main-overview.png)
 
 Extracted from [allaboutapps/go-starter](https://github.com/allaboutapps/go-starter).

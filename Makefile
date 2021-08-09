@@ -18,7 +18,7 @@ info: ##- Prints info about go.mod updates and current go version.
 	@go version
 
 lint: ##- (opt) Runs golangci-lint.
-	golangci-lint run --fast --timeout 5m
+	golangci-lint run --timeout 5m
 
 go-format: ##- (opt) Runs go format.
 	go fmt ./...
@@ -125,7 +125,7 @@ help-all: ##- Show all make targets.
 
 # https://unix.stackexchange.com/questions/153763/dont-stop-makeing-if-a-command-fails-but-check-exit-status
 # https://www.gnu.org/software/make/manual/html_node/One-Shell.html
-# required to ensure make fails if one recipe fails (even on parallel jobs)
+# required to ensure make fails if one recipe fails (even on parallel jobs) and on pipefails
 .ONESHELL:
 SHELL = /bin/bash
-.SHELLFLAGS = -ec
+.SHELLFLAGS = -cEeuo pipefail
