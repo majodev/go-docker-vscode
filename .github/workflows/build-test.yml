@@ -11,7 +11,7 @@ jobs:
   build-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v3
       - name: Build the Docker image
         run: docker build --target builder --file Dockerfile --tag majodev/go-docker-vscode:${GITHUB_SHA:8} .
       - name: Create container
