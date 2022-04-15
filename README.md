@@ -102,4 +102,4 @@ Simply run `./docker-helper --destroy` in your working directory (on your host m
 
 ## License
 
-[MIT](LICENSE) © 2021 Mario Ranftl
+[MIT](LICENSE) © Mario Ranftl

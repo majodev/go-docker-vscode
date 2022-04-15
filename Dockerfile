@@ -4,7 +4,7 @@
 # --- https://hub.docker.com/_/golang
 # --- https://github.com/microsoft/vscode-remote-try-go/blob/master/.devcontainer/Dockerfile
 ### -----------------------
-FROM golang:1.16.7 AS development
+FROM golang:1.18.1-buster AS development
 
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
@@ -48,6 +48,7 @@ RUN apt-get update \
     graphviz \
     xz-utils \
     icu-devtools \
+    tmux \
     # --- END DEVELOPMENT ---
     # 
     && apt-get clean \
@@ -66,29 +67,29 @@ ENV LANG en_US.UTF-8
 # https://github.com/gotestyourself/gotestsum/releases
 RUN mkdir -p /tmp/gotestsum \
     && cd /tmp/gotestsum \
-    && wget https://github.com/gotestyourself/gotestsum/releases/download/v1.7.0/gotestsum_1.7.0_linux_amd64.tar.gz \
-    && tar xzf gotestsum_1.7.0_linux_amd64.tar.gz \
+    && wget https://github.com/gotestyourself/gotestsum/releases/download/v1.8.0/gotestsum_1.8.0_linux_amd64.tar.gz \
+    && tar xzf gotestsum_1.8.0_linux_amd64.tar.gz \
     && cp gotestsum /usr/local/bin/gotestsum \
-    && rm -rf /tmp/gotestsum 
+    && rm -rf /tmp/gotestsum
 
 # go linting: (this package should NOT be installed via go get)
 # https://github.com/golangci/golangci-lint#binary
 # https://github.com/golangci/golangci-lint/releases
 RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh \
-    | sh -s -- -b $(go env GOPATH)/bin v1.41.1
+    | sh -s -- -b $(go env GOPATH)/bin v1.45.2
 
 # lichen: go license util 
 # TODO: Install from static binary as soon as it becomes available.
-# https://github.com/uw-labs/lichen/releases
-RUN go install github.com/uw-labs/lichen@v0.1.4
+# https://github.com/uw-labs/lichen/tags
+RUN go install github.com/uw-labs/lichen@v0.1.5
 
 # watchexec
 # https://github.com/watchexec/watchexec/releases
 RUN mkdir -p /tmp/watchexec \
     && cd /tmp/watchexec \
-    && wget https://github.com/watchexec/watchexec/releases/download/cli-v1.17.0/watchexec-1.17.0-x86_64-unknown-linux-gnu.tar.xz \
-    && tar xf watchexec-1.17.0-x86_64-unknown-linux-gnu.tar.xz \
-    && cp watchexec-1.17.0-x86_64-unknown-linux-gnu/watchexec /usr/local/bin/watchexec \
+    && wget https://github.com/watchexec/watchexec/releases/download/cli-v1.18.11/watchexec-1.18.11-x86_64-unknown-linux-musl.tar.xz \
+    && tar xf watchexec-1.18.11-x86_64-unknown-linux-musl.tar.xz \
+    && cp watchexec-1.18.11-x86_64-unknown-linux-musl/watchexec /usr/local/bin/watchexec \
     && rm -rf /tmp/watchexec
 
 # linux permissions / vscode support: Add user to avoid linux file permission issues
