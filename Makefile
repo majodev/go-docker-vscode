@@ -3,7 +3,7 @@
 ### -----------------------
 
 # first is default target when running "make" without args
-build: ##- Default 'make' target: sql, swagger, go-generate, go-format, go-build and lint.
+build: ##- Default 'make' target: go-format, go-build and lint.
 	@$(MAKE) go-format
 	@$(MAKE) go-build
 	@$(MAKE) lint
