@@ -76,7 +76,7 @@ modules: ##- (opt) Cache packages as specified in go.mod.
 
 # https://marcofranssen.nl/manage-go-tools-via-go-modules/
 tools: ##- (opt) Install packages as specified in tools.go.
-	@cat tools.go | grep _ | awk -F'"' '{print $$2}' | xargs -P $$(nproc) -L 1 -tI % go install %
+	@cat tools.go | grep _ | awk -F'"' '{print $$2}' | xargs -P $$(nproc) -tI % go install %
 
 tidy: ##- (opt) Tidy our go.sum file.
 	go mod tidy
@@ -127,5 +127,11 @@ help-all: ##- Show all make targets.
 # https://www.gnu.org/software/make/manual/html_node/One-Shell.html
 # required to ensure make fails if one recipe fails (even on parallel jobs) and on pipefails
 .ONESHELL:
-SHELL = /bin/bash
-.SHELLFLAGS = -cEeuo pipefail
+
+# # normal POSIX bash shell mode
+# SHELL = /bin/bash
+# .SHELLFLAGS = -cEeuo pipefail
+
+# wrapped make time tracing shell, use it via MAKE_TRACE_TIME=true make <target>
+SHELL = /app/rksh
+.SHELLFLAGS = $@
