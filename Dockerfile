@@ -97,7 +97,7 @@ RUN COBRA_CLI_VERSION="1.3.0" \
 RUN mkdir -p /tmp/watchexec \
     && cd /tmp/watchexec \
     # https://github.com/watchexec/watchexec/releases
-    && WATCHEXEC_VERSION="1.25.1" \
+    && WATCHEXEC_VERSION="2.3.0" \
     && wget https://github.com/watchexec/watchexec/releases/download/v${WATCHEXEC_VERSION}/watchexec-${WATCHEXEC_VERSION}-$(arch)-unknown-linux-musl.tar.xz \
     && tar xf watchexec-${WATCHEXEC_VERSION}-$(arch)-unknown-linux-musl.tar.xz \
     && cp watchexec-${WATCHEXEC_VERSION}-$(arch)-unknown-linux-musl/watchexec /usr/local/bin/watchexec \
