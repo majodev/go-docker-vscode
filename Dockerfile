@@ -107,7 +107,7 @@ RUN mkdir -p /tmp/watchexec \
 RUN mkdir -p /tmp/yq \
     && cd /tmp/yq \
     # https://github.com/mikefarah/yq/releases
-    && YQ_VERSION="4.40.5" \
+    && YQ_VERSION="4.45.1" \
     && ARCH="$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/)" \
     && wget "https://github.com/mikefarah/yq/releases/download/v${YQ_VERSION}/yq_linux_${ARCH}.tar.gz" \
     && tar xzf "yq_linux_${ARCH}.tar.gz" \
