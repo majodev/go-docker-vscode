@@ -4,7 +4,7 @@
 # --- https://hub.docker.com/_/golang
 # --- https://github.com/microsoft/vscode-remote-try-go/blob/master/.devcontainer/Dockerfile
 ### -----------------------
-FROM golang:1.23-bookworm AS development
+FROM golang:1.24-bookworm AS development
 
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
@@ -64,47 +64,52 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
 
 ENV LANG en_US.UTF-8
 
-# go gotestsum: (this package should NOT be installed via go get)
-# https://github.com/gotestyourself/gotestsum/releases
 RUN mkdir -p /tmp/gotestsum \
     && cd /tmp/gotestsum \
+    # https://github.com/gotestyourself/gotestsum/releases
+    && GOTESTSUM_VERSION="1.12.0" \
     && ARCH="$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/)" \
-    && wget "https://github.com/gotestyourself/gotestsum/releases/download/v1.12.0/gotestsum_1.12.0_linux_${ARCH}.tar.gz" \
-    && tar xzf "gotestsum_1.12.0_linux_${ARCH}.tar.gz" \
+    && wget "https://github.com/gotestyourself/gotestsum/releases/download/v${GOTESTSUM_VERSION}/gotestsum_${GOTESTSUM_VERSION}_linux_${ARCH}.tar.gz" \
+    && tar xzf "gotestsum_${GOTESTSUM_VERSION}_linux_${ARCH}.tar.gz" \
     && cp gotestsum /usr/local/bin/gotestsum \
     && rm -rf /tmp/gotestsum
 
 # go linting: (this package should NOT be installed via go get)
 # https://github.com/golangci/golangci-lint#binary
 # https://github.com/golangci/golangci-lint/releases
-RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh \
-    | sh -s -- -b $(go env GOPATH)/bin v1.60.1
+RUN && GOLANG_CI_LINT_VERSION="1.60.1" \
+    && curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh \
+    | sh -s -- -b $(go env GOPATH)/bin v${GOLANG_CI_LINT_VERSION}
 
 # lichen: go license util 
 # TODO: Install from static binary as soon as it becomes available.
-# https://github.com/uw-labs/lichen/tags
-RUN go install github.com/uw-labs/lichen@v0.1.7
+# renovate: datasource=github-releases depName=uw-labs/lichen
+RUN LICHEN_VERSION="0.1.7" \
+    && go install github.com/uw-labs/lichen@v${LICHEN_VERSION}
 
 # cobra-cli: cobra cmd scaffolding generator
 # TODO: Install from static binary as soon as it becomes available.
 # https://github.com/spf13/cobra-cli/releases
-RUN go install github.com/spf13/cobra-cli@v1.3.0
+RUN COBRA_CLI_VERSION="1.3.0" \
+    && go install github.com/spf13/cobra-cli@v${COBRA_CLI_VERSION}
 
 # watchexec
-# https://github.com/watchexec/watchexec/releases
 RUN mkdir -p /tmp/watchexec \
     && cd /tmp/watchexec \
-    && wget https://github.com/watchexec/watchexec/releases/download/v1.25.1/watchexec-1.25.1-$(arch)-unknown-linux-musl.tar.xz \
-    && tar xf watchexec-1.25.1-$(arch)-unknown-linux-musl.tar.xz \
-    && cp watchexec-1.25.1-$(arch)-unknown-linux-musl/watchexec /usr/local/bin/watchexec \
+    # https://github.com/watchexec/watchexec/releases
+    && WATCHEXEC_VERSION="1.25.1" \
+    && wget https://github.com/watchexec/watchexec/releases/download/v${WATCHEXEC_VERSION}/watchexec-${WATCHEXEC_VERSION}-$(arch)-unknown-linux-musl.tar.xz \
+    && tar xf watchexec-${WATCHEXEC_VERSION}-$(arch)-unknown-linux-musl.tar.xz \
+    && cp watchexec-${WATCHEXEC_VERSION}-$(arch)-unknown-linux-musl/watchexec /usr/local/bin/watchexec \
     && rm -rf /tmp/watchexec
 
 # yq
-# https://github.com/mikefarah/yq/releases
 RUN mkdir -p /tmp/yq \
     && cd /tmp/yq \
+    # https://github.com/mikefarah/yq/releases
+    && YQ_VERSION="4.40.5" \
     && ARCH="$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/)" \
-    && wget "https://github.com/mikefarah/yq/releases/download/v4.40.5/yq_linux_${ARCH}.tar.gz" \
+    && wget "https://github.com/mikefarah/yq/releases/download/v${YQ_VERSION}/yq_linux_${ARCH}.tar.gz" \
     && tar xzf "yq_linux_${ARCH}.tar.gz" \
     && cp "yq_linux_${ARCH}" /usr/local/bin/yq \
     && rm -rf /tmp/yq

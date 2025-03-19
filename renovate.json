@@ -1,0 +1,31 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "^Dockerfile$"
+      ],
+      "matchStrings": [
+        "# https://github\\.com/(?<depName>[\\w-]+/[\\w-]+)/releases[^\\n]*?\\n[^\\n]*?[A-Z_]+_VERSION=\"(?<currentValue>[\\w.-]+)\""
+      ],
+      "datasourceTemplate": "github-releases",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "^Dockerfile$"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[\\w-]+) depName=(?<depName>[\\w-]+/[\\w-]+)\\s*\\n\\s*(?<variableName>[\\w_]+_VERSION)\\s*=\\s*\"(v)?(?<currentValue>[\\d\\.]+)\""
+      ],
+      "datasourceTemplate": "{{{datasource}}}",
+      "depNameTemplate": "{{{depName}}}",
+      "versioningTemplate": "semver"
+    }
+  ]
+}
