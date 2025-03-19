@@ -77,7 +77,7 @@ RUN mkdir -p /tmp/gotestsum \
 # go linting: (this package should NOT be installed via go get)
 # https://github.com/golangci/golangci-lint#binary
 # https://github.com/golangci/golangci-lint/releases
-RUN && GOLANG_CI_LINT_VERSION="1.60.1" \
+RUN && GOLANG_CI_LINT_VERSION="1.64.8" \
     && curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh \
     | sh -s -- -b $(go env GOPATH)/bin v${GOLANG_CI_LINT_VERSION}
 
