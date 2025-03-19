@@ -77,7 +77,7 @@ RUN mkdir -p /tmp/gotestsum \
 # go linting: (this package should NOT be installed via go get)
 # https://github.com/golangci/golangci-lint#binary
 # https://github.com/golangci/golangci-lint/releases
-RUN && GOLANG_CI_LINT_VERSION="1.64.8" \
+RUN GOLANG_CI_LINT_VERSION="1.64.8" \
     && curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh \
     | sh -s -- -b $(go env GOPATH)/bin v${GOLANG_CI_LINT_VERSION}
 
@@ -165,7 +165,7 @@ ENV PATH $PATH:$GOBIN
 # --- Purpose: Statically built binaries and CI environment
 ### -----------------------
 
-FROM development as builder
+FROM development AS builder
 WORKDIR /app
 COPY Makefile /app/Makefile
 COPY --chmod=0755 rksh /app/rksh
@@ -188,7 +188,7 @@ RUN make go-build
 # https://github.com/GoogleContainerTools/distroless/blob/master/base/README.md
 # The :debug image provides a busybox shell to enter (base-debian10 only, not static).
 # https://github.com/GoogleContainerTools/distroless#debug-images
-FROM gcr.io/distroless/base-debian12:debug as app
+FROM gcr.io/distroless/base-debian12:debug AS app
 
 # FROM debian:buster-slim as app
 # RUN apt-get update \
