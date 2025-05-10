@@ -67,7 +67,7 @@ ENV LANG en_US.UTF-8
 RUN mkdir -p /tmp/gotestsum \
     && cd /tmp/gotestsum \
     # https://github.com/gotestyourself/gotestsum/releases
-    && GOTESTSUM_VERSION="1.12.1" \
+    && GOTESTSUM_VERSION="1.12.2" \
     && ARCH="$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/)" \
     && wget "https://github.com/gotestyourself/gotestsum/releases/download/v${GOTESTSUM_VERSION}/gotestsum_${GOTESTSUM_VERSION}_linux_${ARCH}.tar.gz" \
     && tar xzf "gotestsum_${GOTESTSUM_VERSION}_linux_${ARCH}.tar.gz" \
